@@ -23,4 +23,12 @@ class MyDatabase{
 
         return mysqli_fetch_all($databaseResult,MYSQLI_ASSOC);
     }
+	
+	    public function update($sql){
+        $databaseResult = mysqli_query($this->connection, $sql);
+
+             return [];
+
+     }
+	
 }

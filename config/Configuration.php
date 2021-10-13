@@ -3,6 +3,12 @@ class Configuration{
 
     private $config;
 
+	    public  function createRegistroController(){
+        require_once("controller/RegistroController.php");
+        return new RegistroController($this->createRegistroModel(),$this->createPrinter());
+    }
+	
+	
 
     public function createHomeController(){
         require_once("controller/homeController.php");
@@ -34,12 +40,24 @@ class Configuration{
         $database = $this->getDatabase();
         return new CancionesModel($database);
     }
+	
+	
+	
+    private  function createRegistroModel(){
+        require_once("model/RegistroModel.php");
+        $database = $this->getDatabase();
+        return new RegistroModel($database);
+    }
 
     private  function createPresentacionesModel(){
         require_once("model/PresentacionesModel.php");
         $database = $this->getDatabase();
         return new PresentacionesModel($database);
     }
+	
+	
+
+	
 
     private  function getDatabase(){
         require_once("helpers/MyDatabase.php");
