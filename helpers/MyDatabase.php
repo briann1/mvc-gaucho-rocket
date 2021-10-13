@@ -30,5 +30,19 @@ class MyDatabase{
              return [];
 
      }
+
+
+
+
+    public function queryLogin($sql, $email, $clave){
+        $comm=$this->connection->prepare($sql);
+        $comm->bind_param("ss",$email,$clave);
+        $comm->execute();
+        return $comm->get_result()->fetch_assoc();
+    }
+
+    public function queryInsertUpdate($sql){
+        $this->connection->query($sql);
+    }
 	
 }
