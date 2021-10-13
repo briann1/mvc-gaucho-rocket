@@ -7,38 +7,30 @@ class Configuration{
         require_once("controller/RegistroController.php");
         return new RegistroController($this->createRegistroModel(),$this->createPrinter());
     }
-	
-	
 
     public function createHomeController(){
         require_once("controller/homeController.php");
         return new homeController($this->createPrinter());
     }
 
-    public  function createPresentacionesController(){
-        require_once("controller/PresentacionesController.php");
-        return new PresentacionesController( $this->createPresentacionesModel() , $this->createPrinter());
+    public function createLoginController(){
+        require_once("controller/loginController.php");
+        return new loginController($this->createLoginModel(), $this->createPrinter(), $this->createSessionUser());
     }
 
-    public  function createCancionesController(){
-        require_once("controller/CancionesController.php");
-        return new CancionesController( $this->createCancionesModel(), $this->getLogger() , $this->createPrinter());
+    public function createLogueadoController(){
+        require_once("controller/logueadoController.php");
+        return new logueadoController($this->createLogueadoModel(), $this->createPrinter());
     }
 
-    public function createLaBandaController(){
-        require_once("controller/LaBandaController.php");
-        return new LaBandaController( $this->createPrinter());
+    public function createSistemaController(){
+        require_once("controller/sistemaController.php");
+        return new sistemaController($this->createSistemaModel(), $this->createPrinter(), $this->createSessionUser());
     }
 
-    public function createQuieroSerParteController(){
-        require_once("controller/QuieroSerParteController.php");
-        return new QuieroSerParteController( $this->createPrinter());
-    }
-
-    private  function createCancionesModel(){
-        require_once("model/CancionesModel.php");
-        $database = $this->getDatabase();
-        return new CancionesModel($database);
+    public function createCerrarSesionController(){
+        require_once("controller/cerrarSesion.php");
+        return new cerrarSesion();
     }
 	
 	
@@ -49,15 +41,36 @@ class Configuration{
         return new RegistroModel($database);
     }
 
-    private  function createPresentacionesModel(){
-        require_once("model/PresentacionesModel.php");
-        $database = $this->getDatabase();
-        return new PresentacionesModel($database);
+    public function createLoginModel(){
+        require_once("model/loginModel.php");
+        $database=$this->getDatabase();
+        return new loginModel($database);
     }
-	
-	
 
-	
+    public function createLogueadoModel(){
+        require_once("model/logueadoModel.php");
+        $database=$this->getDatabase();
+        return new logueadoModel($database);
+    }
+
+    public function createSistemaModel(){
+        require_once("model/sistemaModel.php");
+        $database=$this->getDatabase();
+        return new sistemaModel($database);
+    }
+
+
+
+    public function createSessionUser(){
+        require_once ("controller/sessionUser.php");
+        return new sessionUser($this->createModelSessionUser());
+    }
+
+    public function createModelSessionUser(){
+        require_once ("model/modelSessionUser.php");
+        $database=$this->getDatabase();
+        return new modelSessionUser($database);
+    }
 
     private  function getDatabase(){
         require_once("helpers/MyDatabase.php");

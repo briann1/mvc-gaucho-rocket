@@ -9,6 +9,10 @@ class RegistroController{
         $this->printer=$printer;
     }
 
+    public function show(){
+        echo $this->printer->render("view/registroView.html");
+    }
+
     public function validar(){
 		 $data["codigo_alta"] = $_GET["codigo_alta"];
          echo $this->printer->render("view/validarView.html", $data);

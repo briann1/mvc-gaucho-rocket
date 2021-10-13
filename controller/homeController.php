@@ -7,6 +7,6 @@ class homeController{
     }
 
     public function show(){
-        echo $this->printer->render("view/homeView.php");
+        echo $this->printer->render("view/homeView.html");
     }
 }
