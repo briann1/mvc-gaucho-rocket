@@ -2,7 +2,8 @@
 class Configuration{
 
     private $config;
-
+   
+    
 	    public  function createRegistroController(){
         require_once("controller/RegistroController.php");
         return new RegistroController($this->createRegistroModel(),$this->createPrinter());
@@ -32,9 +33,8 @@ class Configuration{
         require_once("controller/cerrarSesion.php");
         return new cerrarSesion();
     }
-	
-	
-	
+
+
     private  function createRegistroModel(){
         require_once("model/RegistroModel.php");
         $database = $this->getDatabase();
