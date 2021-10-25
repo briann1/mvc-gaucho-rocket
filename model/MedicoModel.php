@@ -14,7 +14,13 @@ class MedicoModel
     }
 	
 	
+	     public function dameResultado($id_turno){
+		 $SQL = "SELECT * FROM  turnos where id_turno=$id_turno ";
+		 return $this->database->query($SQL);
+		}
 	
+	
+	 
 	
 	
 	
@@ -22,9 +28,12 @@ class MedicoModel
         $fecha=$data['fecha'];
         $id_centro=$data['id_centro']; 
         $id_usuario=$data['id_usuario'];
- 
+		$nivel=rand(1,3);
 
-        $this->database->queryInsertUpdate("INSERT INTO turnos (id_usuario,id_centro,fecha,estado) VALUES ('$id_usuario','$id_centro','$fecha',1)");
+       return $this->database->queryInsertUpdateConReturnId("INSERT INTO turnos (id_usuario,id_centro,fecha,estado,nivel) VALUES ('$id_usuario','$id_centro','$fecha',1,'$nivel')");
+		
+		
+		
     }
 	
 	

@@ -23,6 +23,16 @@ class MedicoController{
     }
 	
 	
+	   public function resultadoChequeo(){
+		$resultado = $this->medicoModel->dameResultado($_GET['id_turno']);
+		$data["resultado"] = $resultado;
+		$data["mensaje"] = "";
+		
+         echo $this->printer->render("view/resultadoView.html", $data);
+    }
+	
+	
+	
 	    public function procesarTurno()
     {
 		
@@ -33,8 +43,9 @@ class MedicoController{
             'id_usuario' => $_SESSION["id_usuario"], 
         );
 
-        $this->medicoModel->crearTurno($data);
-	$data["mensaje"] = "Turno solicitado Correctamente";
+        $id_turno=$this->medicoModel->crearTurno($data);
+		$data["mensaje"] = "Turno solicitado Correctamente. Puede ver el resultado en el siguiente enlace:
+		<a href='/mvc-gaucho-rocket/medico/resultadoChequeo?id_turno=$id_turno'> Ver Resultados</a>";
 		$centrosMedicos = $this->medicoModel->dameCentros();
 		$data["centrosMedicos"] = $centrosMedicos;
 
