@@ -33,6 +33,7 @@ class MedicoController{
    
    
    public function turno(){
+	   /*este metodo se remplazo por solicitarTurno() */
 		$centrosMedicos = $this->medicoModel->dameCentros();
 		$data["centrosMedicos"] = $centrosMedicos;
 		$data["mensaje"] = "";
@@ -42,7 +43,7 @@ class MedicoController{
 	
 	
 	   public function resultadoChequeo(){
-		$resultado = $this->medicoModel->dameResultado($_GET['id_turno']);
+		$resultado = $this->medicoModel->dameTurno($_GET['id_turno']);
 		$data["resultado"] = $resultado;
 		$data["mensaje"] = "";
 		
@@ -54,7 +55,6 @@ class MedicoController{
 	    public function procesarTurno()
     {
 		
-		
          $data = array(
             'id_centro' => $_POST['id_centro'],
             'fecha' => $_POST['fecha'], 
@@ -62,20 +62,57 @@ class MedicoController{
         );
 
         $id_turno=$this->medicoModel->crearTurno($data);
-		$data["mensaje"] = "Turno solicitado Correctamente. Puede ver el resultado en el siguiente enlace:
-		<a href='/mvc-gaucho-rocket/medico/resultadoChequeo?id_turno=$id_turno'> Ver Resultados</a>";
-		$centrosMedicos = $this->medicoModel->dameCentros();
-		$data["centrosMedicos"] = $centrosMedicos;
+		$data["mensaje"] = "";
+	 
+		$data["id_turno"] = $id_turno;
 
-         echo $this->printer->render("view/turnoView.html", $data);
+         echo $this->printer->render("view/linkEmailTurnoView.html", $data);
 
     }
+	
+	
+		
+	    public function confirmarTurno()
+    {
+		$id_turno=$_POST['id_turno'] ;
+         $data = array(
+            'id_turno' => $id_turno
+        );
+
+        $turno=$this->medicoModel->dameTurno($id_turno);
+		$data["mensaje"] = "Turno realizado con éxito.";
+		$data["turno"] =  $turno;
+		$data["nombre"] = $_SESSION["nombre"];
+		$data["apellido"] = $_SESSION["apellido"];
+		$data["email"] = $_SESSION["email"];
+		
+         echo $this->printer->render("view/turnoConfirmadoView.html", $data);
+
+    }
+	
+	
 
 
     /*Metodos de MedicoController.php*/
     public function solicitarTurno(){
-        echo "solicitarTurno";
-    }
+
+	$centrosMedicos = $this->medicoModel->dameCentros();
+		$data["centrosMedicos"] = $centrosMedicos;
+		$data["mensaje"] = "";
+
+		$data=$this->dameDatosUsuario($data);
+         echo $this->printer->render("view/turnoView.html", $data);
+
+	}
+
+
+	function dameDatosUsuario($data){
+		$data["nombre"] = $_SESSION["nombre"];
+		$data["apellido"] = $_SESSION["apellido"];
+		$data["email"] = $_SESSION["email"];
+		return $data;
+	}
+
     public function realizarChequeo(){
         echo "realizarChequeo";
     }

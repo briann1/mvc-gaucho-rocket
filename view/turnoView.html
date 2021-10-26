@@ -18,18 +18,22 @@
     <br><br>
 <div class="container">
 <form action="/mvc-gaucho-rocket/medico/procesarTurno" class="form-neon" method="POST">
+<p><label>Nombre:</label><strong>{{nombre}}</strong></p>
+<p><label>Apellido:</label><strong>{{apellido}}</strong></p>
+<p><label>Email:</label><strong>{{email}}</strong></p>
+<br><br>
 <div>
  <label>Centro Medico:</label>
- <select name="id_centro" id="id_centro">
+ <select name="id_centro" id="id_centro"  class="form-control">
         {{#centrosMedicos}} 
 		<option value="{{id_centro}}">{{nombre}}</option>
         {{/centrosMedicos}}
 
 </select>
 </div>
-
+<br><br>
 <div>
-<label>Fecha :</label><input type="date" name="fecha" id="fecha">
+<label>Fecha :</label><input type="date" name="fecha" id="fecha"  class="form-control">
 </div>
 
 
