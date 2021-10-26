@@ -35,6 +35,13 @@ class MedicoModel
 		
 		
     }
+
+
+
+
+    public function tieneTurnoActual($id, $fechaActual){
+        return $this->database->query("SELECT * FROM turnos WHERE id_usuario='$id'");
+    }
 	
 	
 /*
@@ -51,7 +58,7 @@ INSERT INTO `centros` (`id_centro`, `nombre`, `descripcion`, `turnos`) VALUES ('
 CREATE TABLE `gauchorocket1`.`turnos` ( `id_turno` INT(9) NOT NULL AUTO_INCREMENT , `id_usuario` INT(9) NULL , `id_centro` INT(9) NULL , `fecha` DATE NULL , PRIMARY KEY (`id_turno`)) ENGINE = InnoDB;
 
 
-ALTER TABLE `turnos` ADD `estado` INT(9) NULL AFTER `fecha`, ADD `nivel` INT(9) NULL AFTER `estado`;
+ALTER TABLE `turnos` ADD `estado` VARCHAR(20) NULL AFTER `fecha`, ADD `nivel` INT(9) NULL AFTER `estado`;
 
 
 */

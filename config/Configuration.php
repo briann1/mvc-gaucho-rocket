@@ -2,8 +2,7 @@
 class Configuration{
 
     private $config;
-   
-    
+
 	    public  function createMedicoController(){
         require_once("controller/MedicoController.php");
         return new MedicoController($this->createMedicoModel(),$this->createPrinter());
