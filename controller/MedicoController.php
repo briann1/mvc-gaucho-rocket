@@ -16,7 +16,7 @@ class MedicoController{
             if ($turno!=[]){
                 if ($turno[0]["estado"]=="En espera"){
                     //Realizar chequeo
-                    $this->realizarChequeo();
+                    $this->realizarChequeo($_SESSION["id_usuario"]);
                 }elseif ($turno[0]["estado"]=="Chequeo realizado"){
                     //Mostrar vista de chequeo realizado con el codigo de viajero=columna 'nivel' de la tabla turnos
                     $this->chequeoRealizado();
@@ -113,9 +113,36 @@ class MedicoController{
 		return $data;
 	}
 
-    public function realizarChequeo(){
-        echo "realizarChequeo";
+    public function realizarChequeo($idUsuario){
+        $turno=$this->medicoModel->datosTurnoActual($idUsuario);
+        $data["turno"] =  $turno;
+        $data["nombre"] = $_SESSION["nombre"];
+        $data["apellido"] = $_SESSION["apellido"];
+        $data["email"] = $_SESSION["email"];
+
+        echo $this->printer->render("view/turnoConfirmadoView.html", $data);
     }
+    public function procesarChequeoMedico(){
+        if (isset($_POST["idTurno"])){
+            $this->medicoModel->actualizarEstado($_POST["idTurno"], "Chequeo realizado");
+            $nivel=rand(1,3);
+            $this->medicoModel->asignarNivel($_POST["idTurno"], $nivel);
+            $data["id_turno"]=$_POST["idTurno"];
+            echo $this->printer->render("view/linkEmailResultadoView.html", $data);
+        }
+    }
+    public function resultadoMedico(){
+        if (isset($_POST["id_turno"])){
+            $data=[];
+            $data=$this->dameDatosUsuario($data);
+            $turno=$this->medicoModel->dameTurno($_POST["id_turno"]);
+            $data["turno"] =  $turno;
+            $data["mensaje"]="Chequeo medico realizado con exito!";
+
+            echo $this->printer->render("view/resultadoConfirmadoView.html", $data);
+        }
+    }
+
     public function chequeoRealizado(){
         echo "chequeoRealizado";
     }
