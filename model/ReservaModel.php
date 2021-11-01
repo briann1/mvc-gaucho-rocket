@@ -13,6 +13,10 @@ class ReservaModel
         return $this->database->query($SQL);
     }
 	
+	     public function dameCabinas(){
+		 $SQL = "SELECT * FROM  cabina ";
+        return $this->database->query($SQL);
+    }
 	
  
 	 
@@ -32,6 +36,22 @@ class ReservaModel
 		 
  		 return $this->database->query($SQL);
 		}
+		
+			
+		public function dameCabinasDelVuelo($data){
+		
+		$id_vuelo=$data['vuelo']; 
+		$id_cabina=$data['cabina']; 
+ 		
+		 $SQL = "SELECT vuelo.*,nave_cabina.*
+			FROM  vuelo
+			left join nave_cabina on (vuelo.id_nave=nave_cabina.id_nave) 
+			where vuelo.id_vuelo=$id_vuelo and  nave_cabina.id_cabina=$id_cabina  
+		 ";
+		 
+ 		 return $this->database->query($SQL);
+		}
+		
 	
 	
   

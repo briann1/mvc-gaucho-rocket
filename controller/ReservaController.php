@@ -48,9 +48,11 @@ class ReservaController{
 		$data["mensaje"] = ""; 
 		$data["vuelos"] = $vuelos;
 		$cantidad=count($vuelos);
-		
+		$cabinas=$this->reservaModel->dameCabinas();
+		$data["cabinas"] = $cabinas;
+
 		if($cantidad>0){
-         echo $this->printer->render("view/seleccionoUbicacionView.html", $data);
+         echo $this->printer->render("view/seleccionoHorarioView.html", $data);
 		}else{
 		
 		$destinos = $this->reservaModel->dameDestinos();
@@ -63,5 +65,29 @@ class ReservaController{
 		
 
     }
+	
+	
+		    public function procesarHorario()
+    {
+		
+         $data = array(
+            'vuelo' => $_POST['vuelo'],
+            'cabina' => $_POST['cabina'],
+             'id_usuario' => $_SESSION["id_usuario"], 
+        );
+
+        $cabinasDelVuelo=$this->reservaModel->dameCabinasDelVuelo($data);
+        $reservasDeEseVuelo="";
+       
+		$data["mensaje"] = ""; 
+		$data["cabinasDelVuelo"] = $cabinasDelVuelo;
+ 		 
+         echo $this->printer->render("view/seleccionoUbicacionView.html", $data);
+	 
+		
+
+    }
+	
+	
 	 
 }

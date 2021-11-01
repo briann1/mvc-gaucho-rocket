@@ -12,22 +12,35 @@
 
 
 <div class="container">
-    <h2>Seleccione Ubicacion</h2>
+    <h2>Seleccione Horario</h2>
 
     <br>
-<form action="/mvc-gaucho-rocket/reserva/procesarUbicacion" class="form-neon" method="POST">
+<form action="/mvc-gaucho-rocket/reserva/procesarHorario" class="form-neon" method="POST">
    
    
 <div>
- <label>Cantidad de cabinas:</label>
-         {{#cabinasDelVuelo}}  {{cantidad}} 
-        {{/cabinasDelVuelo}}
+ <label>Horarios:</label>
+ <select name="vuelo" id="vuelo"  class="form-control">
+        {{#vuelos}} 
+		<option value="{{id_vuelo}}">{{hora}}</option>
+        {{/vuelos}}
 
- 
+</select>
 </div>
 <br><br>
 
- 
+
+<div>
+ <label>Cabina:</label>
+ <select name="cabina" id="cabina"  class="form-control">
+
+        {{#cabinas}} 
+		<option value="{{id_cabina}}">{{nombre}}</option>
+        {{/cabinas}}
+   
+
+</select>
+</div>
 <br><br>
 
  
