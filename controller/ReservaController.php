@@ -11,7 +11,8 @@ class ReservaController{
 
     public function show(){
         if (isset($_SESSION["id_usuario"])) {
-            $this->solicitarRes();
+            $this->solicitarReserva();
+            $this->procesarCodigo();
         }else{
             header("Location: /mvc-gaucho-rocket/login");
         }
@@ -22,6 +23,14 @@ class ReservaController{
 		$data["mensaje"] = "";
 		echo $this->printer->render("view/solicitarReservaView.html", $data);
 	}
+    public function procesarCodigo(){
+        $this->nivel();
+        if (isset($_POST["vuelo"])){
+            $equipo=$this->reservaModel->datosVuelo($_POST["vuelo"]);
+            $data["cabina"]=$this->reservaModel->dameCabinasDelEquipo($equipo[0]["id_equipo"]);
+            echo $this->printer->render("view/solicitarReservaView.html", $data);
+        }
+    }
 	public function procesarDisponibilidad(){
         if (isset($_GET["origen"]) and isset($_GET["destino"])){
             $data=$this->reservaModel->buscarDisponibilidadDeVuelo($_GET["origen"],$_GET["destino"]);
@@ -47,7 +56,7 @@ class ReservaController{
         return $data;
     }
     public function nivel(){
-
+        $this->reservaModel->codigo();
     }
     public function seleccionarCabinas(){
         if (isset($_POST["vuelo"])){
@@ -75,13 +84,6 @@ class ReservaController{
         $data["servicio"] =$this->reservaModel->servicio($servicio);
         $data["asientos"]=$this->reservaModel->asientos($vuelo, $cabina);
         echo $this->printer->render("view/seleccionarAsientoView.html", $data);
-    }
-    public function procesarCodigo(){
-        if (isset($_POST["vuelo"])){
-            $equipo=$this->reservaModel->datosVuelo($_POST["vuelo"]);
-            $data["cabina"]=$this->reservaModel->dameCabinasDelEquipo($equipo[0]["id_equipo"]);
-            echo $this->printer->render("view/seleccionarCabinaView.html", $data);
-        }
     }
     public function procesar(){
         if (isset($_POST["vuelo"])){

@@ -17,8 +17,10 @@ class ReservaModel
 		 $SQL = "SELECT * FROM  cabina ";
         return $this->database->query($SQL);
     }
-	
 
+    public  function codigo(){
+        return $this->database->query("SELECT * FROM turno");
+    }
   public function nombreDestino($id){
         $destino=$this->database->query("SELECT nombre FROM destinos WHERE id_destino='$id'");
         return $destino[0]["nombre"];
