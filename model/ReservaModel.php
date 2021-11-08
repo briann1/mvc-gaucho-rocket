@@ -18,12 +18,7 @@ class ReservaModel
         return $this->database->query($SQL);
     }
 	
-	
-  public function tieneCodigoDeViajero($idUsuario, $estado){
-        return $this->database->query("SELECT * FROM turnos
-                                     WHERE id_turno=(SELECT MAX(t2.id_turno) FROM turnos t2 WHERE t2.id_usuario='$idUsuario')
-                                     AND estado like '$estado';");
-  }
+
   public function nombreDestino($id){
         $destino=$this->database->query("SELECT nombre FROM destinos WHERE id_destino='$id'");
         return $destino[0]["nombre"];
