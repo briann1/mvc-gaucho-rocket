@@ -22,7 +22,7 @@ class misReservasModel{
 	
 	
 	    public function miReservas($id_reserva){
-       return $this->dataBase->query("SELECT V.id_vuelo AS idVuelo, id_reserva,codigo_reserva, fecha, Origen.nombre AS origen, Destino.nombre AS destino,
+       return $this->dataBase->query("SELECT V.id_vuelo AS idVuelo, id_reserva,codigo_reserva, fecha, Origen.nombre AS origen, Destino.nombre AS destino,nivel_vuelo,
  A.asiento AS asiento, cabina.nombre AS cabina, V.hora AS hora, SA.nombre AS nombre_servicio, TE.tipo AS tipo_equipo, TE.descripcion AS nombre_tipo_equipo
  FROM reserva R JOIN vuelo V ON V.id_vuelo=R.id_vuelo
 					  JOIN destinos Origen ON V.id_origen=Origen.id_destino

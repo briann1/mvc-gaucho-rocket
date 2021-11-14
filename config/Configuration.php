@@ -5,7 +5,7 @@ class Configuration{
 
 	    public  function createReservaController(){
         require_once("controller/ReservaController.php");
-        return new ReservaController($this->createReservaModel(),$this->createPrinter());
+        return new ReservaController($this->createMedicoModel(),$this->createReservaModel(),$this->createPrinter());
     }
 
     public  function createMisreservasController(){

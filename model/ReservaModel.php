@@ -23,14 +23,42 @@ class ReservaModel
         return $destino[0]["nombre"];
   }
   public function buscarDisponibilidadDeVuelo($origen,$destino){
-        return $this->database->query("SELECT V.*, Origen.nombre AS nombre_origen, Destino.nombre AS nombre_destino, E.tipo AS tipo_equipo, TE.descripcion AS nombre_tipo_equipo FROM vuelo V JOIN destinos Origen ON V.id_origen=Origen.id_destino JOIN destinos Destino ON V.id_destino=Destino.id_destino JOIN equipo E ON V.id_equipo=E.matricula JOIN tipo_de_equipo TE ON E.tipo=TE.tipo
-                                      WHERE Origen.id_destino='$origen' AND Destino.id_destino='$destino';");
+        return $this->database->query("
+		SELECT 
+		V.*, 
+		Origen.nombre AS nombre_origen, 
+		Destino.nombre AS nombre_destino
+	
+	
+		FROM vuelo V 
+		JOIN destinos Origen ON V.id_origen=Origen.id_destino 
+		JOIN destinos Destino ON V.id_destino=Destino.id_destino         
+		WHERE Origen.id_destino='$origen' AND Destino.id_destino='$destino';");
+		
+		//JOIN equipo E ON V.id_equipo=E.matricula 
+		//JOIN tipo_de_equipo TE ON E.tipo=TE.tipo
+		//E.tipo AS tipo_equipo, 
+		//TE.descripcion AS nombre_tipo_equipo 
     }
   public function vuelosDisponibles(){
-      return $this->database->query("SELECT V.*, Origen.nombre AS nombre_origen, Destino.nombre AS nombre_destino, E.tipo AS tipo_equipo, TE.descripcion AS nombre_tipo_equipo FROM vuelo V JOIN destinos Origen ON V.id_origen=Origen.id_destino JOIN destinos Destino ON V.id_destino=Destino.id_destino JOIN equipo E ON V.id_equipo=E.matricula JOIN tipo_de_equipo TE ON E.tipo=TE.tipo;");
+      return $this->database->query("
+	  SELECT V.*, 
+	  Origen.nombre AS nombre_origen,
+	  Destino.nombre AS nombre_destino 
+	  FROM vuelo V JOIN destinos Origen ON V.id_origen=Origen.id_destino 
+	  JOIN destinos Destino ON V.id_destino=Destino.id_destino 
+	  ");
   }
   public function datosVuelo($idVuelo){
-        return $this->database->query("SELECT V.*, Origen.nombre AS nombre_origen, Destino.nombre AS nombre_destino, E.tipo AS tipo_equipo, TE.descripcion AS nombre_tipo_equipo FROM vuelo V JOIN destinos Origen ON V.id_origen=Origen.id_destino JOIN destinos Destino ON V.id_destino=Destino.id_destino JOIN equipo E ON V.id_equipo=E.matricula JOIN tipo_de_equipo TE ON E.tipo=TE.tipo WHERE V.id_vuelo='$idVuelo';");
+        return $this->database->query("
+		SELECT V.*, 
+		Origen.nombre AS nombre_origen,
+		Destino.nombre AS nombre_destino
+		FROM vuelo V 
+		JOIN destinos Origen ON V.id_origen=Origen.id_destino 
+		JOIN destinos Destino ON V.id_destino=Destino.id_destino
+		WHERE V.id_vuelo='$idVuelo'
+		");
   }
   public function dameServiciosDeABordo(){
         return $this->database->query("SELECT * FROM servicio_de_a_bordo;");
@@ -38,6 +66,9 @@ class ReservaModel
   public function dameCabinasDelEquipo($matricula){
         return $this->database->query("SELECT * FROM equipo_cabina EC JOIN cabina ON EC.id_cabina=cabina.id_cabina WHERE matricula LIKE '$matricula';");
   }
+  
+  
+  
   public function asientos($idVuelo, $idCabina){
         return $this->database->query("SELECT * FROM asiento WHERE id_vuelo='$idVuelo' AND id_cabina='$idCabina';");
   }
@@ -45,8 +76,9 @@ class ReservaModel
         return $this->database->query("SELECT * FROM asiento WHERE id_asiento='$id'");
   }
   public function realizarReserva($pk){
-        $this->database->queryInsertUpdate("INSERT INTO reserva(id_vuelo, id_cabina,estado, codigo_reserva, fecha_reserva, id_usuario, id_asiento, id_servicio) VALUES
-        ('$pk[idVuelo]','$pk[idCabina]','Activo','$pk[codigoReserva]','$pk[fecha]','$pk[usuario]', $pk[asiento], $pk[idServicio]);");
+        $this->database->queryInsertUpdate("INSERT INTO reserva(id_vuelo, id_cabina,estado, codigo_reserva, fecha_reserva, id_usuario, id_asiento, id_servicio,nivel_vuelo) VALUES
+        ('$pk[idVuelo]','$pk[idCabina]','Activo','$pk[codigoReserva]','$pk[fecha]','$pk[usuario]', $pk[asiento]
+, $pk[idServicio], $pk[nivel]);");
         $this->ocuparAsiento($pk["asiento"]);
   }
   public function ocuparAsiento($idAsiento){

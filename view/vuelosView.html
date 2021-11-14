@@ -11,6 +11,12 @@
         {{/mensaje}}
 
 
+		{{#nivel}}
+			    <div class="alert alert-success" role="alert">
+ <p>Nivel de vuelo: {{nivel}}</p>
+		    </div> 
+		{{/nivel}}
+		
 <div class="container">
     <form action="/mvc-gaucho-rocket/reserva/seleccionarCabinas" class="form-neon" method="POST">
     {{#titulo}}
@@ -26,10 +32,27 @@
     <hr>
         <h4>{{vuelosDisponibles}}</h4>
     {{/vuelosDisponibles}}
+	
+	
+	
+	<style>
+	.AA1{
+	display:none;
+	}
+	
+	.AA2{
+	display:none;
+	}
+	</style>
 <table class="table table-hover">
     {{#vuelos}}
     <tr>
-        <td><input type="radio" name="vuelo" value="{{id_vuelo}}" required></td>
+        <td>
+		{{#nivel}}
+		<input type="radio" name="vuelo" value="{{id_vuelo}}" required class="{{tipo_equipo}}{{nivel}}">
+		{{/nivel}}
+		
+		</td>
         <td>({{tipo_equipo}})</td>
         <!--<td>{{id_vuelo}}</td>-->
         <td>{{nombre_origen}}</td>
