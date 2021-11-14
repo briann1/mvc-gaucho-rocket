@@ -10,7 +10,7 @@ class Configuration{
 
     public  function createMisreservasController(){
         require_once("controller/misReservasController.php");
-        return new misReservasController($this->createMisReservasModel(),$this->createPrinter());
+        return new misReservasController($this->createPdf(),$this->createMisReservasModel(),$this->createPrinter());
     }
 
 	public  function createMedicoController(){
@@ -21,7 +21,7 @@ class Configuration{
 
 	public  function createRegistroController(){
         require_once("controller/RegistroController.php");
-        return new RegistroController($this->createRegistroModel(),$this->createPrinter());
+        return new RegistroController($this->createEmail(),$this->createRegistroModel(),$this->createPrinter());
     }
 
     public function createHomeController(){
@@ -68,6 +68,12 @@ class Configuration{
         $database = $this->getDatabase();
         return new misReservasModel($database);
     }
+	
+
+    private  function createPdf(){
+        require_once("helpers/pdf/Pdf.php");
+         return new Pdf();
+    }
 
 
     private  function createRegistroModel(){
@@ -75,6 +81,14 @@ class Configuration{
         $database = $this->getDatabase();
         return new RegistroModel($database);
     }
+	
+	
+	   private  function createEmail(){
+        require_once("helpers/Email/Email.php");
+        return new Email();
+    }
+	
+	
 
     public function createLoginModel(){
         require_once("model/loginModel.php");

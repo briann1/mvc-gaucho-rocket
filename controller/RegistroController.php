@@ -4,7 +4,8 @@ class RegistroController{
     private $registroModel;
     private $printer;
 	
-    public function __construct($registroModel,$printer){
+    public function __construct($email,$registroModel,$printer){
+		$this->email = $email;
 		$this->registroModel = $registroModel;
         $this->printer=$printer;
     }
@@ -22,6 +23,8 @@ class RegistroController{
             'clave' => md5($_POST['usuario_clave_1_reg']),
             'codigo_alta' => $codigo_alta
         );
+
+		//$this->email->enviarEmail($_POST['usuario_email_reg'],$codigo_alta);exit;
 
         $this->registroModel->registrarUserModel($data);
         header("Location: /mvc-gaucho-rocket/registro/validar?codigo_alta=" . $codigo_alta);

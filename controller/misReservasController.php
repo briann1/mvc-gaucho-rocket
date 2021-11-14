@@ -3,7 +3,9 @@
 class misReservasController{
     private $misReservasModel;
     private $printer;
-    public function __construct($misReservasModel, $printer){
+    private $pdf;
+    public function __construct($pdf,$misReservasModel, $printer){
+        $this->pdf=$pdf;
         $this->misReservasModel=$misReservasModel;
         $this->printer=$printer;
     }
@@ -15,4 +17,21 @@ class misReservasController{
             header("Location: /mvc-gaucho-rocket/login");
         }
     }
+	
+	
+	    public function pdf(){
+			$id_reserva=$_GET["id_reserva"];
+        if (isset($_SESSION["id_usuario"])){
+            $data["reservas"]=$this->misReservasModel->miReservas($id_reserva);
+             
+			echo $this->printer->render("view/imprimirComprobanteView.html", $data);
+			 $this->pdf->generarPdf();
+        }else{
+            header("Location: /mvc-gaucho-rocket/login");
+        }
+		}
+	
+	
+	
+	
 }

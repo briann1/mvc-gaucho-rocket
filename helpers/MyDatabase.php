@@ -16,6 +16,7 @@ class MyDatabase{
     }
 
     public function query($sql){
+	//	echo $sql;
         $databaseResult = mysqli_query($this->connection, $sql);
 
         if (mysqli_num_rows($databaseResult) <= 0)
