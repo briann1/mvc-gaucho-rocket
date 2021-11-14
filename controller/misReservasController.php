@@ -34,4 +34,28 @@ class misReservasController{
 	
 	
 	
+	
+	    public function espera(){
+        if (isset($_SESSION["id_usuario"])){
+            $data["esperas"]=$this->misReservasModel->misEsperas($_SESSION["id_usuario"]);
+            echo $this->printer->render("view/listaEsperaView.html", $data);
+        }else{
+            header("Location: /mvc-gaucho-rocket/login");
+        }
+    }
+	
+	
+		    public function eliminarEspera(){
+				$id_espera=$_GET["id_espera"];
+				
+        if (isset($_SESSION["id_usuario"])){
+          $this->misReservasModel->eliminarEspera($id_espera,$_SESSION["id_usuario"]);
+            header("Location: /mvc-gaucho-rocket/MisReservas/espera");
+        }else{
+            header("Location: /mvc-gaucho-rocket/login");
+        }
+    }
+	
+	
+	
 }

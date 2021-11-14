@@ -24,11 +24,11 @@ $mail->SMTPSecure = 'tls';
 //Tenemos que usar gmail autenticados, así que esto a TRUE
 $mail->SMTPAuth   = true;
 //Definimos la cuenta que vamos a usar. Dirección completa de la misma
-$mail->Username   = "elece.com2@gmail.com";
+$mail->Username   = "systemenergym@gmail.com";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "seguridad16";
+$mail->Password   = "okjrszxdvlfbaodu";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
-$mail->SetFrom('elece.com2@gmail.com', 'Elece Ayala');
+$mail->SetFrom('systemenergym@gmail.com', 'Elece Ayala');
 //Y, ahora sí, definimos el destinatario (dirección y, opcionalmente, nombre)
 $mail->AddAddress('correodedestino@dominio.com', 'El Destinatario');
 //Definimos el tema del email

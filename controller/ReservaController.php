@@ -42,7 +42,7 @@ class ReservaController{
 
                 echo $this->printer->render("view/vuelosView.html", $data);
             }else{
-                $data["titulo"]=$this->titulo("No hay disponibilidad", $_GET["origen"], $_GET["destino"]);
+                $data["titulo"]=$this->titulo("No hay vuelos disponibles para: ", $_GET["origen"], $_GET["destino"]);
                 $data["vuelos"]=$this->reservaModel->vuelosDisponibles();
                 $data["vuelosDisponibles"]="Vuelos disponibles";
 								$data["nivel"]=$nivel;
@@ -74,8 +74,41 @@ class ReservaController{
         $data["cabina"]=$this->reservaModel->cabina($cabina);
         $data["servicio"] =$this->reservaModel->servicio($servicio);
         $data["asientos"]=$this->reservaModel->asientos($vuelo, $cabina);
+        $data["disponibles"]=$this->reservaModel->asientosDisponibles($vuelo, $cabina);
+		
+		
+		if(count($data["disponibles"])>0){
          echo $this->printer->render("view/seleccionarAsientoView.html", $data);
+		}
+		else{
+		$data["mensaje"]="El vuelo no cuenta con asientos disponibles.";
+         echo $this->printer->render("view/crearListaEsperaView.html", $data);
+		}
     }
+
+    public function realizarEspera(){
+
+			$nivel=$this->createMedicoModel->dameNivel($_SESSION["id_usuario"]);
+			$nivelVuelo=$nivel[0]["nivel"];
+            $vuelo=$this->reservaModel->datosVuelo($_POST["vuelo"]);
+ 
+            $data = array(
+                'fecha' => $vuelo[0]["fecha"],
+                'usuario' => $_SESSION["id_usuario"],
+                'idVuelo' => $_POST["vuelo"],
+                'idCabina' => $_POST["cabina"],
+                'codigoReserva' => 00000000,
+                 'idServicio' => $_POST["servicio"],    
+				'nivel' => $nivelVuelo
+            );
+
+            $this->reservaModel->realizarEspera($data);
+            header("Location: /mvc-gaucho-rocket/MisReservas/espera");
+
+     
+    }
+
+
 
     public function realizarReserva(){
         $disponible=$this->reservaModel->estadoAsiento($_POST["asiento"]);

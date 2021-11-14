@@ -25,37 +25,35 @@
     <hr>
         <h4>{{vuelosDisponibles}}</h4>
     {{/vuelosDisponibles}}
-        <h2>Mis reservas</h2>
+        <h2>Lista de espera</h2>
         <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary">Reservar vuelo</button></a>
 <table class="table table-hover">
     <tr>
-        <!--<th>id Vuelo</th>-->
-        <th>Cod. Reserva</th>
+        <th>Cod. Espera</th>
         <th>T. Equipo</th>
         <th>Fecha</th>
         <th>Origen</th>
         <th>Destino</th>
-        <th>Asiento</th>
         <th>Cabina</th>
         <th>Servicio</th>
         <th>Hora</th>
-        <th>Comprobante</th>
-    </tr>
-    {{#reservas}}
+        <th>Cancelar</th>
+     </tr>
+    {{#esperas}}
     <tr>
-        <!--<td>{{idVuelo}}</td>-->
-        <td>{{codigo_reserva}}</td>
+        <td>{{id_espera}}</td>
         <td>({{tipo_equipo}})</td>
         <td>{{fecha}}</td>
         <td>{{origen}}</td>
         <td>{{destino}}</td>
-        <td>{{asiento}}</td>
         <td>{{cabina}}</td>
         <td>{{nombre_servicio}}</td>
         <td>{{hora}}</td>
-        <td><a href="/mvc-gaucho-rocket/misReservas/pdf?id_reserva={{id_reserva}}" target="_blank" class="btn btn-success"> Descargar PDF</a></a></td>
+        <td><a href="/mvc-gaucho-rocket/MisReservas/eliminarEspera?id_espera={{id_espera}}" class="btn btn-danger"
+		onclick="return confirm('¿Esta seguro de dejar la lista de espera?');">Cancelar Espera</a></td>
+         
     </tr>
-    {{/reservas}}
+    {{/esperas}}
 </table>
 
 </div> 

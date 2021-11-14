@@ -72,6 +72,13 @@ class ReservaModel
   public function asientos($idVuelo, $idCabina){
         return $this->database->query("SELECT * FROM asiento WHERE id_vuelo='$idVuelo' AND id_cabina='$idCabina';");
   }
+  
+  
+  public function asientosDisponibles($idVuelo, $idCabina){
+        return $this->database->query("SELECT * FROM asiento WHERE id_vuelo='$idVuelo' AND id_cabina='$idCabina' and estado='disponible' ");
+  }
+  
+  
   public function estadoAsiento($id){
         return $this->database->query("SELECT * FROM asiento WHERE id_asiento='$id'");
   }
@@ -81,6 +88,20 @@ class ReservaModel
 , $pk[idServicio], $pk[nivel]);");
         $this->ocuparAsiento($pk["asiento"]);
   }
+  
+  
+  
+  
+    public function realizarEspera($pk){
+        $this->database->queryInsertUpdate("INSERT INTO ESPERA(id_vuelo, id_cabina,estado, codigo_reserva, fecha_reserva, id_usuario, id_asiento, id_servicio,nivel_vuelo) VALUES
+        ('$pk[idVuelo]','$pk[idCabina]','Activo','$pk[codigoReserva]','$pk[fecha]','$pk[usuario]', 0
+, $pk[idServicio], $pk[nivel]);");
+   }
+  
+  
+  
+  
+  
   public function ocuparAsiento($idAsiento){
         $this->database->queryInsertUpdate("UPDATE asiento SET estado='ocupado' WHERE id_asiento='$idAsiento';");
   }
