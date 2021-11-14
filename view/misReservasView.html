@@ -27,32 +27,32 @@
     {{/vuelosDisponibles}}
         <h2>Mis reservas</h2>
         <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary">Reservar vuelo</button></a>
-<table class="table table-hover">
+<table class="table table-hover" style="    font-size: 0.9em;">
     <tr>
-        <!--<th>id Vuelo</th>-->
-        <th>Cod. Reserva</th>
+         <th>Cod. Reserva</th>
         <th>T. Equipo</th>
         <th>Fecha</th>
+		<th>Hora</th>
         <th>Origen</th>
         <th>Destino</th>
         <th>Asiento</th>
         <th>Cabina</th>
         <th>Servicio</th>
-        <th>Hora</th>
+        <th>Abonar</th>
         <th>Comprobante</th>
     </tr>
     {{#reservas}}
     <tr>
-        <!--<td>{{idVuelo}}</td>-->
-        <td>{{codigo_reserva}}</td>
+         <td>{{codigo_reserva}}</td>
         <td>({{tipo_equipo}})</td>
-        <td>{{fecha}}</td>
+        <td>{{fecha}}</td> 
+		<td>{{hora}}</td>
         <td>{{origen}}</td>
         <td>{{destino}}</td>
         <td>{{asiento}}</td>
         <td>{{cabina}}</td>
         <td>{{nombre_servicio}}</td>
-        <td>{{hora}}</td>
+        <td><a href="/mvc-gaucho-rocket/misReservas/pdf?id_reserva={{id_reserva}}" target="_blank" class="btn btn-info"> Abonar</a></a></td>
         <td><a href="/mvc-gaucho-rocket/misReservas/pdf?id_reserva={{id_reserva}}" target="_blank" class="btn btn-success"> Descargar PDF</a></a></td>
     </tr>
     {{/reservas}}
