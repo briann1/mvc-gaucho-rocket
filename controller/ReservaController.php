@@ -74,7 +74,6 @@ class ReservaController{
         $data["cabina"]=$this->reservaModel->cabina($cabina);
         $data["servicio"] =$this->reservaModel->servicio($servicio);
         $data["asientos"]=$this->reservaModel->asientos($vuelo, $cabina);
-		var_dump($data["asientos"]);
          echo $this->printer->render("view/seleccionarAsientoView.html", $data);
     }
 
