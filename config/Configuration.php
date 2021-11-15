@@ -10,7 +10,7 @@ class Configuration{
 
     public  function createMisreservasController(){
         require_once("controller/misReservasController.php");
-        return new misReservasController($this->createPdf(),$this->createMisReservasModel(),$this->createPrinter());
+        return new misReservasController($this->createQR(),$this->createMercadoPago(),$this->createPdf(),$this->createMisReservasModel(),$this->createPrinter());
     }
 
 	public  function createMedicoController(){
@@ -74,7 +74,18 @@ class Configuration{
         require_once("helpers/pdf/Pdf.php");
          return new Pdf();
     }
-
+	
+	    private  function createMercadoPago(){
+        require_once("helpers/vendor/MercadoPago.php");
+         return new MercadoPago();
+    }
+ 
+ 
+ 	    private  function createQR(){
+        require_once("helpers/qr/QR.php");
+         return new QR();
+    }
+ 
 
     private  function createRegistroModel(){
         require_once("model/RegistroModel.php");

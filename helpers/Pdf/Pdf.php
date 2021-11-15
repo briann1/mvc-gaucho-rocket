@@ -9,7 +9,7 @@ class Pdf{
 	
 
 		public function generarPdf(){
-		$dompdf = new Dompdf();
+		$dompdf = new Dompdf(array('enable_remote' => true));
  		$html = ob_get_clean();
 		$dompdf->loadHtml($html);
  
@@ -21,6 +21,7 @@ class Pdf{
 		$dompdf->stream("document.pdf" , ['Attachment' => 0]);
 		}
 
+ 
 
 
 }

@@ -76,7 +76,7 @@ class ReservaController{
         $data["asientos"]=$this->reservaModel->asientos($vuelo, $cabina);
         $data["disponibles"]=$this->reservaModel->asientosDisponibles($vuelo, $cabina);
 		
-		
+		$data["valor"]= $data["vuelo"][0]["valor"]+$data["cabina"][0]["valor_cabina"]+$data["servicio"][0]["valor_servicio"];
 		if(count($data["disponibles"])>0){
          echo $this->printer->render("view/seleccionarAsientoView.html", $data);
 		}
@@ -116,7 +116,8 @@ class ReservaController{
 			$nivel=$this->createMedicoModel->dameNivel($_SESSION["id_usuario"]);
 			$nivelVuelo=$nivel[0]["nivel"];
             $vuelo=$this->reservaModel->datosVuelo($_POST["vuelo"]);
-            $codigoReserva=time();
+			
+            $codigoReserva="GRSA".time();
 
             $data = array(
                 'fecha' => $vuelo[0]["fecha"],
