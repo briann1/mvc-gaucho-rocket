@@ -10,7 +10,21 @@
 		    </div>
         {{/mensaje}}
 
+<style>
+.ocupado{
+color:red;
 
+}
+
+.ocupadoRadio{
+color:red;
+
+}
+
+.disponible{
+color:#4caf50;
+
+}</style>
 <div class="container">
 <form action="/mvc-gaucho-rocket/reserva/realizarReserva" class="form-neon" method="post">
 
@@ -38,7 +52,7 @@
     {{#asientos}}
         <div class="form-group float-left text-center" style="width:120px;">
         <input required style="width: 50px;height: 50px;" type="radio" name="asiento" value="{{id_asiento}}">
-        <p class="">{{asiento}} {{estado}}</p>
+        <p class="{{estado}}" >{{asiento}} {{estado}}</p>
         </div>
     {{/asientos}}
     </div>
