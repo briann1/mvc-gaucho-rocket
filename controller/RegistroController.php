@@ -24,10 +24,16 @@ class RegistroController{
             'codigo_alta' => $codigo_alta
         );
 
-		//$this->email->enviarEmail($_POST['usuario_email_reg'],$codigo_alta);exit;
 
+$body="Por favor ingrese al siguiente link para poder verificar su cuenta: <a href='http://localhost/mvc-gaucho-rocket/registro/verificacion/?codigo_alta=$codigo_alta'>Validar Registro</a>";
+
+$asunto="Validar Usuario";
+
+		$this->email->enviarEmail($_POST['usuario_email_reg'],$body,$asunto);
         $this->registroModel->registrarUserModel($data);
-        header("Location: /mvc-gaucho-rocket/registro/validar?codigo_alta=" . $codigo_alta);
+		$data["codigo_alta"] = $codigo_alta;
+         echo $this->printer->render("view/validarView.html", $data);
+
     }
 
     public function validar(){

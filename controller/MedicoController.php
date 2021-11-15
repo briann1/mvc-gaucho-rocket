@@ -3,8 +3,10 @@
 class MedicoController{
     private $medicoModel;
     private $printer;
+    private $email;
 	
-    public function __construct($medicoModel,$printer){
+    public function __construct($email,$medicoModel,$printer){
+		$this->email = $email;
 		$this->medicoModel = $medicoModel;
         $this->printer=$printer;
     }
@@ -66,6 +68,15 @@ class MedicoController{
 	 
 		$data["id_turno"] = $id_turno;
 
+
+$body="<html><body>Por favor ingrese al siguiente link para poder confirmar su turno medico:  
+<a href=\"http://localhost/mvc-gaucho-rocket/medico/confirmarTurno?id_turno=$id_turno\">Confirmar Turno</a></body></html>";
+
+$asunto="Validar Email Turno";
+
+		$this->email->enviarEmail($_SESSION["email"],$body,$asunto);
+		
+		
          echo $this->printer->render("view/linkEmailTurnoView.html", $data);
 
     }
@@ -74,7 +85,7 @@ class MedicoController{
 		
 	    public function confirmarTurno()
     {
-		$id_turno=$_POST['id_turno'] ;
+		$id_turno=$_GET['id_turno'] ;
          $data = array(
             'id_turno' => $id_turno
         );
